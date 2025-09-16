@@ -8,9 +8,6 @@ type DbConfig = {
   user: string;
   password: string;
   database: string;
-  ssl?: boolean;
-  max?: number;       // tamaño del pool
-  idleTimeoutMs?: number;
 };
 
 function loadConfig(): DbConfig {
@@ -39,10 +36,7 @@ export async function registerDb(app: FastifyInstance) {
     port: cfg.port,
     user: cfg.user,
     password: cfg.password,
-    database: cfg.database,
-    max: cfg.max,
-    idleTimeoutMillis: cfg.idleTimeoutMs,
-    ssl: cfg.ssl ? { rejectUnauthorized: false } : undefined,
+    database: cfg.database
   });
 
   // Probar conexión al arrancar (fail fast)

@@ -11,6 +11,7 @@ export type Profile = {
   };
   
   export interface ProfileRepository {
+    CreatePerfil(profile: Profile): Profile | PromiseLike<Profile | null> | null;
     getById(id: number): Promise<Profile | null>;
   }
   

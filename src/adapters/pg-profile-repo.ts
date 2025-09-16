@@ -11,4 +11,12 @@ export class PgProfileRepository implements ProfileRepository {
     );
     return rows[0] ?? null;
   }
+
+  async CreatePerfil(profile: Profile): Promise<Profile | null> {
+    const { rows } = await this.pool.query(
+      `INSERT INTO perfil (nombre, titulo, descripcion, ubicacion, linkedin, github, email, avatar_emoji) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *`,
+      [profile.nombre, profile.titulo, profile.descripcion, profile.ubicacion, profile.linkedin, profile.github, profile.email, profile.avatar_emoji]
+    );
+    return rows[0] ?? null;
+  }
 }
