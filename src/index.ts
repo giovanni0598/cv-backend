@@ -1,14 +1,19 @@
-import fastify from "fastify";
+import Fastify from "fastify";
 
-const server = fastify();
+const app = Fastify({ logger: true });
 
-server.get("/", (req, res) => {
-  res.send("Hello World");
+app.get("/ping", async () => {
+  return { message: "pong" };
 });
 
-server.listen({ port: 3000 }, (err, address) => {
-  if (err) {
-    console.error(err);
+const start = async () => {
+  try {
+    await app.listen({ port: 8080, host: "0.0.0.0" });
+    console.log("🚀 Server running on http://localhost:8080");
+  } catch (err) {
+    app.log.error(err);
     process.exit(1);
   }
-});
+};
+
+start();
